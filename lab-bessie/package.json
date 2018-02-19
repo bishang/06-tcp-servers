@@ -1,0 +1,17 @@
+{
+  "name": "chat-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest --coverage",
+    "start": "node server.js",
+    "lint": "eslint ./"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "uuid": "^3.2.1"
+  }
+}
