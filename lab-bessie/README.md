@@ -16,3 +16,5 @@ Available commands:
 `@list` Will list all current users.
 
 `@quit` Will end your current session.
+
+`@help` Will show you a list of available commands.

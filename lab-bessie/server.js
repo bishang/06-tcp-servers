@@ -43,7 +43,7 @@ ee.on('@list', function(client) {
   client.socket.write(`Connected users: ${list.join(', ')}\n`);
 });
 
-var helpText = '@all <message> Sends a message to everyone connected.\n@nickname <new-nickname> Allows you to change your nickname.\n@dm <target-user> <message> Sends a direct message to a specific user.\n@list Will list all current users.\n@quit Will end your current session.';
+var helpText = '\n @all <message> Sends a message to everyone connected.\n @nickname <new-nickname> Allows you to change your nickname.\n @dm <target-user> <message> Sends a direct message to a specific user.\n @list Will list all current users.\n @quit Will end your current session.\n';
 
 ee.on('@help', function(client) {
   client.socket.write(`${helpText}\n`);
@@ -56,6 +56,10 @@ ee.on('default', function(client) {
 server.on('connection', function(socket) {
   var client = new Client(socket);
   pool.push(client);
+
+  pool.forEach(c => {
+    c.socket.write(`${client.nickname} has joined the chat\n`);
+  });
 
   socket.on('data', function(data) {
     const command = data.toString().split(' ').shift().trim();
