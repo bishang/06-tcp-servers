@@ -10,15 +10,19 @@ const ee = new EE();
 const pool = [];
 
 ee.on('@all', function(client, string) {
-  pool.forEach( c => {
+  pool.forEach(c => {
     c.socket.write( `${client.nickname}: ${string}`);
   });
 });
 
 ee.on('@nickname' , function(client, string) {
   let nickname = string.split(' ').shift().trim();
+  let oldNickname = client.nickname;
   client.nickname = nickname;
-  client.socket.write(`user nickname has been changed to ${nickname}\n`);
+  pool.forEach(c => {
+    c.socket.write(`Nickname of ${oldNickname} has been changed to ${nickname}.\n`);
+  });
+  
 });
 
 ee.on('@dm', function(client, string) {
@@ -37,8 +41,8 @@ ee.on('@quit', function(client) {
 
 ee.on('@list', function(client) {
   var list = [];
-  pool.forEach(function(each) {
-    list.push(each.nickname);
+  pool.forEach(c => {
+    list.push(c.nickname);
   });
   client.socket.write(`Connected users: ${list.join(', ')}\n`);
 });
