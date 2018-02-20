@@ -43,9 +43,11 @@ ee.on('@list', function(client) {
   client.socket.write(`Connected users: ${list.join(', ')}\n`);
 });
 
-// ee.on('@help', function(client) {
-//   client.socket.write('what happens when you do @help\n');
-// });
+var helpText = '@all <message> Sends a message to everyone connected.\n@nickname <new-nickname> Allows you to change your nickname.\n@dm <target-user> <message> Sends a direct message to a specific user.\n@list Will list all current users.\n@quit Will end your current session.';
+
+ee.on('@help', function(client) {
+  client.socket.write(`${helpText}\n`);
+});
 
 ee.on('default', function(client) {
   client.socket.write('not a command - please use an @ symbol\n');
